@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tapşırıq Həlli: Cards və Counter</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <style>
+        .card { transition: transform 0.2s; }
+        .card:hover { transform: translateY(-5px); }
+    </style>
+</head>
+<body class="bg-light">
+    <div class="container py-5">
+        <h2 class="mb-4 text-primary">Task 1: Müştəri Kartları</h2>
+        <div class="row g-4" id="card-area"></div>
+        <hr class="my-5 border-3">
+        <h2 class="mb-4 text-success">Task 2: İdarəetmə Paneli</h2>
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card shadow text-center p-5">
+                    <h3 class="text-muted">Sayğac</h3>
+                    <h1 class="display-1 fw-bold my-3"><span id="counter-span">0</span></h1>
+                    <div class="d-flex justify-content-center gap-2">
+                        <button id="btn-decrease" class="btn btn-danger btn-lg px-4">Azalt (-)</button>
+                        <button id="btn-reset" class="btn btn-warning btn-lg px-4 text-white">Sıfırla</button>
+                        <button id="btn-increase" class="btn btn-success btn-lg px-4">Artır (+)</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        const cardData = [
+            { id: 4, companyName: "Tokyo Traders", contactName: "Yoshi Nagase", contactTitle: "Marketing Manager" },
+            { id: 5, companyName: "Cooperativa de Quesos 'Las Cabras'", contactName: "Antonio del Valle Saavedra", contactTitle: "Export Administrator" },
+            { id: 6, companyName: "Mayumi's", contactName: "Mayumi Ohno", contactTitle: "Marketing Representative" },
+            { id: 7, companyName: "Pavlova Ltd.", contactName: "Ian Devling", contactTitle: "Marketing Manager" },
+            { id: 8, companyName: "Specialty Biscuits Ltd.", contactName: "Peter Wilson", contactTitle: "Sales Representative" },
+            { id: 9, companyName: "PB Knäckebröd AB", contactName: "Lars Peterson", contactTitle: "Sales Agent" },
+            { id: 10, companyName: "Refrescos Americanas LTDA", contactName: "Carlos Diaz", contactTitle: "Marketing Manager" }
+        ];
+        const cardArea = document.getElementById('card-area');
+        const spanElement = document.getElementById('counter-span');
+        const btnInc = document.getElementById('btn-increase');
+        const btnDec = document.getElementById('btn-decrease');
+        const btnReset = document.getElementById('btn-reset');
+        let counter = 0;
+        cardData.forEach(item => {
+            const html = `
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-header bg-primary text-white">ID: ${item.id}</div>
+                        <div class="card-body">
+                            <h5 class="card-title">${item.companyName}</h5>
+                            <h6 class="card-subtitle mb-3 text-muted">${item.contactTitle}</h6>
+                            <p class="card-text border-top pt-3"><strong>Contact:</strong> ${item.contactName}</p>
+                        </div>
+                    </div>
+                </div>`;
+            cardArea.innerHTML += html;
+        });
+        const updateDisplay = () => spanElement.innerText = counter;
+        btnInc.addEventListener('click', () => { counter++; updateDisplay(); });
+        btnDec.addEventListener('click', () => { counter--; updateDisplay(); });
+        btnReset.addEventListener('click', () => { counter = 0; updateDisplay(); });
+    </script>
+</body>
+</html>
